@@ -1,16 +1,16 @@
-# GraphQL — Complete Beginner-to-Intermediate Notes
-## With Elmeasure Examples
+# GraphQL 
+## For Elmeasure
 
 ---
 
-# 1. What is GraphQL?
+# 1. GraphQL Introduction
 
-:contentReference[oaicite:0]{index=0} is a query language and runtime for APIs.
-
+GraphQL is a query language and runtime for APIs.
+GraphQL is not a database.
+It is mainly an API layer between frontend apps and backend services/databases.  
 It allows the frontend to request exactly the data it needs from the backend.
 
-Created by:
-:contentReference[oaicite:1]{index=1}
+
 
 ---
 
@@ -19,9 +19,10 @@ Created by:
 Traditional REST APIs caused problems:
 
 - Too many API endpoints
-- Multiple network requests
-- Overfetching unnecessary data
+- Too many requests increase frontend load and more bandwidth used
+- Overfetching unnecessary data. Underfetching imp data
 - Frontend/backend coordination complexity
+- increased latency
 
 Example:
 
@@ -31,7 +32,22 @@ GET /plants/1/meters
 GET /meters/11/alerts
 GET /meters/11/readings
 ```
+### REST 
+```txt
+GET /meter/11
 
+Returns:
+
+{
+  "id": 11,
+  "name": "Main Meter",
+  "serialNo": "ABC123",
+  "manufacturer": "XYZ",
+  "location": "Floor 2",
+  "latestReading": 420
+}
+```
+Extra data is wasted if only Id and name rquired  
 Frontend may need many requests for one screen.
 
 GraphQL solves this by allowing one structured query.
@@ -45,9 +61,27 @@ Frontend specifies:
 - which fields it needs
 - how deeply nested relationships should go
 
-Backend returns exactly that structure.
+Backend returns exactly that structure.  
+GraphQL allows to traverse connected data structures dynamically
+```txt
+Organization
+ └── Plants
+      └── Buildings
+           └── Meters
+                └── Readings
+                     └── Alerts
+```
+Everything is related.
 
----
+Traditional REST treats these as:
+
++ separate endpoints
++ separate requests
++ separate resources
+
+GraphQL treats them as:
+connected traversable objects  
+Frontend walks through connected relationships naturally. Unlike rest where frontend combines data manually
 
 # 4. REST vs GraphQL
 
@@ -96,27 +130,6 @@ query {
   }
 }
 ```
-
-Single request.
-
----
-
-# 6. Why It Is Called GraphQL
-
-Data in real systems is connected:
-
-```txt
-Company
- └── Plant
-      └── Meter
-           └── Reading
-                └── Alert
-```
-
-This connected structure behaves like a graph.
-
-GraphQL allows traversal through these relationships.
-
 ---
 
 # 7. Main Components of GraphQL
@@ -128,7 +141,9 @@ GraphQL allows traversal through these relationships.
 Defines:
 - available data
 - relationships
-- data types
+- data types/ field type
+- opeartions allowed
+- api strcuture
 
 Example:
 
@@ -138,29 +153,31 @@ type Plant {
   name: String!
   meters: [Meter]
 }
-
 type Meter {
   id: ID!
   name: String!
   latestReading: Float
 }
 ```
+``` Meaning:
 
-Schema acts like:
-- API contract
-- blueprint
-- type system
+Plant has:
+- id
+- name
+- list of meters
 
+Meter has:
+- id
+- name
+```
+In REST:  
+URL defines operation-> backend decides  
+In GraphQL:  
+query defines operation-> frontend decides  
 ---
-
 ## 7.2 Query
 
 Used to fetch data.
-
-Equivalent to:
-```txt
-GET
-```
 
 Example:
 
@@ -497,11 +514,11 @@ REST is simpler for:
 ```txt
 IoT Devices
     ↓
-MQTT / Kafka
+Protocol
     ↓
 Ingestion Services
     ↓
-TimescaleDB / PostgreSQL
+Database
     ↓
 Business Logic Services
     ↓
