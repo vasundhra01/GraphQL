@@ -164,7 +164,7 @@ type Meter {
 Plant has:
 - id
 - name
-- list of meters
+- list of meters -- here meters are connected to plants so frontend can naturally traverse
 
 Meter has:
 - id
@@ -174,10 +174,9 @@ In REST:
 URL defines operation-> backend decides  
 In GraphQL:  
 query defines operation-> frontend decides  
----
-## 7.2 Query
 
-Used to fetch data.
+## 7.2 Query
+Used to fetch/read data.
 
 Example:
 
@@ -188,12 +187,33 @@ query {
   }
 }
 ```
+Frontend can traverse all relationships in ONE query.
+Traversal is nested. No need to call multiple API or manually combine data. async req can be managed.  
+Prob: Nested traversal can become computationally expensive and can cause performance engineering problem
+### BATCHING
+GraphQL systems use batching tools like DataLoader
+Instead of:
+```
+1 query → get all plants
+Then:
+100 separate queries → get meters for each plant
+100 queries for meters assuming there are a 100 meters
+```
+Do:
+``` txt
+1 query:
+SELECT * FROM meters
+WHERE plant_id IN (...)
+```
+Huge optimization.
 
----
+GraphQL queries LOOK simple.
+But backend execution may become extremely complex.
+This is why GraphQL is harder than REST at scale.
 
 ## 7.3 Mutation
 
-Used to modify data.
+Used to modify/change data.
 
 Equivalent to:
 ```txt
@@ -214,17 +234,19 @@ mutation {
 ```
 
 ---
-
-## 7.4 Resolver
+## 7.4 SUBSCRIPTIONS — REAL-TIME GRAPHQL
+enables:
+#### live updates
+Example:
++ live meter readings
++ live alert notifications
++ dashboard auto-refresh
+keeps sending updates whenever meter changes-- connection stays open, uses
+#### WebSockets
+---
+## 7.5 Resolver
 
 Resolver is backend logic that fetches data.
-
-Example:
-
-```txt
-plant → meters
-```
-
 Resolver may:
 - query database
 - call another service
@@ -232,6 +254,18 @@ Resolver may:
 
 Resolvers power GraphQL internally.
 
+Suppose database:
+``` txt
+
+Plant Table
+Meter Table
+```
+Resolver logic:
+```txt
+
+Find meters where plant_id = current plant
+Resolvers connect schema to real data.
+```
 ---
 
 # 8. How GraphQL Works Internally
@@ -241,15 +275,15 @@ Frontend
     ↓
 GraphQL Query
     ↓
-GraphQL Server
+GraphQL Server (reads wuery structure)
     ↓
-Schema Validation
+Schema Validation (checks if it exists)
     ↓
-Resolvers Execute
+Resolvers Execute (resolver fetches actual data)
     ↓
 Database / Services
     ↓
-JSON Response Returned
+JSON Response Returned (query shape determines response shape)
 ```
 
 ---
@@ -357,14 +391,6 @@ Frontend becomes more flexible.
 
 # 13. GraphQL and Databases
 
-GraphQL is NOT a database.
-
-It sits between:
-- frontend
-- backend/data sources
-
-Example architecture:
-
 ```txt
 Frontend
     ↓
@@ -375,17 +401,7 @@ Database / Services
 
 ---
 
-# 14. Best Databases with GraphQL
-
-Good combinations:
-
-- :contentReference[oaicite:2]{index=2}
-- :contentReference[oaicite:3]{index=3}
-- :contentReference[oaicite:4]{index=4}
-
----
-
-# 15. GraphQL in Elmeasure
+# 14. GraphQL in Elmeasure
 
 Elmeasure data is naturally hierarchical:
 
