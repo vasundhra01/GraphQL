@@ -10,10 +10,10 @@ GraphQL is not a database.
 It is mainly an API layer between frontend apps and backend services/databases.  
 It allows the frontend to request exactly the data it needs from the backend.
 
-
+typeDef: every piece of data, query defined in graphQL sits inside typedef  
+resolvers: all the functions that resolve the types and make calls to API, calls databses  
 
 ---
-
 # 2. Why GraphQL Was Created
 
 Traditional REST APIs caused problems:
