@@ -198,12 +198,17 @@ Instead of:
 Then:
 100 separate queries → get meters for each plant
 100 queries for meters assuming there are a 100 meters
+
+SELECT * FROM readings WHERE device_id = 1
+SELECT * FROM readings WHERE device_id = 2
+SELECT * FROM readings WHERE device_id = 3
+
 ```
 Do:
 ``` txt
-1 query:
-SELECT * FROM meters
-WHERE plant_id IN (...)
+SELECT *
+FROM readings
+WHERE device_id IN (1,2,3)
 ```
 Huge optimization.
 
@@ -211,6 +216,11 @@ GraphQL queries LOOK simple.
 But backend execution may become extremely complex.
 This is why GraphQL is harder than REST at scale.
 
+Instead of immediately hitting DB: DataLoader collects all IDs temporarily.
+Like: [1,2,3]  
+Then executes ONE batch query:  
+WHERE device_id IN (...)  
+Then distributes results back to correct device.  
 ## 7.3 Mutation
 
 Used to modify/change data.
@@ -750,3 +760,4 @@ service A
 service B
 service C
 #### GraphQL centralizes orchestration.
+## Caching
