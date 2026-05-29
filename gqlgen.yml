@@ -1,0 +1,385 @@
+schema:
+  - graph/schema.graphqls
+
+exec:
+  filename: graph/generated.go
+  package: graph
+
+# Point the generated types at our GQL structs (not the BSON models)
+models:
+  User:
+    model: go-graphql-mongodb/graph.UserGQL
+  DeviceInstanceTag:
+    model: go-graphql-mongodb/graph.DeviceInstanceTagGQL
+  DeviceInstanceBelongsRef:
+    model: go-graphql-mongodb/graph.DeviceInstanceBelongsRefGQL
+  DeviceInstanceAssignRef:
+    model: go-graphql-mongodb/graph.DeviceInstanceAssignRefGQL
+  DeviceInstanceGeneralInfo:
+    model: go-graphql-mongodb/graph.DeviceInstanceGeneralInfoGQL
+  DeviceInstance:
+    model: go-graphql-mongodb/graph.DeviceInstanceGQL
+    fields:
+      deviceInstanceId:
+        fieldName: DeviceInstanceID
+      device_instance_id:
+        fieldName: DeviceInstanceID
+      gatewayId:
+        fieldName: GatewayID
+      gateway_id:
+        fieldName: GatewayID
+      gatewayInstanceId:
+        fieldName: GatewayInstanceID
+      gateway_instance_id:
+        fieldName: GatewayInstanceID
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      eventUserId:
+        fieldName: EventUserID
+      event_user_id:
+        fieldName: EventUserID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+  DeviceModel:
+    model: go-graphql-mongodb/graph.DeviceModelGQL
+  Sensor:
+    model: go-graphql-mongodb/graph.SensorGQL
+    fields:
+      deviceInstanceId:
+        fieldName: DeviceInstanceID
+      device_instance_id:
+        fieldName: DeviceInstanceID
+      sensorId:
+        fieldName: SensorID
+      sensor_id:
+        fieldName: SensorID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+  Batch:
+    model: go-graphql-mongodb/graph.BatchGQL
+  Client:
+    model: go-graphql-mongodb/graph.ClientGQL
+    fields:
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+  Cost:
+    model: go-graphql-mongodb/graph.CostGQL
+    fields:
+      costManagementId:
+        fieldName: CostManagementID
+      cost_management_id:
+        fieldName: CostManagementID
+      costType:
+        fieldName: CostType
+      cost_type:
+        fieldName: CostType
+      dgBaseCost:
+        fieldName: DgBaseCost
+      dg_base_cost:
+        fieldName: DgBaseCost
+      dgCost:
+        fieldName: DgCost
+      dg_cost:
+        fieldName: DgCost
+      ebBaseCost:
+        fieldName: EbBaseCost
+      eb_base_cost:
+        fieldName: EbBaseCost
+      ebCost:
+        fieldName: EbCost
+      eb_cost:
+        fieldName: EbCost
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      fromDate:
+        fieldName: FromDate
+      from_date:
+        fieldName: FromDate
+      fromDateStr:
+        fieldName: FromDateStr
+      from_date_str:
+        fieldName: FromDateStr
+      toDate:
+        fieldName: ToDate
+      to_date:
+        fieldName: ToDate
+      toDateStr:
+        fieldName: ToDateStr
+      to_date_str:
+        fieldName: ToDateStr
+      rechargeTax:
+        fieldName: RechargeTax
+      recharge_tax:
+        fieldName: RechargeTax
+      serviceProvider:
+        fieldName: ServiceProvider
+      service_provider:
+        fieldName: ServiceProvider
+      serviceProviderId:
+        fieldName: ServiceProviderID
+      service_provider_id:
+        fieldName: ServiceProviderID
+      tariffCateg:
+        fieldName: TariffCateg
+      tariff_categ:
+        fieldName: TariffCateg
+      tariffCategoryId:
+        fieldName: TariffCategoryID
+      tariff_category_id:
+        fieldName: TariffCategoryID
+      cgstTax:
+        fieldName: CgstTax
+      cgst_tax:
+        fieldName: CgstTax
+      sgstTax:
+        fieldName: SgstTax
+      sgst_tax:
+        fieldName: SgstTax
+      camCost:
+        fieldName: CamCost
+      cam_cost:
+        fieldName: CamCost
+      ed1phase:
+        fieldName: Ed1phase
+      ed_1phase:
+        fieldName: Ed1phase
+      ed3phase:
+        fieldName: Ed3phase
+      ed_3phase:
+        fieldName: Ed3phase
+  Site:
+    model: go-graphql-mongodb/graph.SiteGQL
+    fields:
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+  Gateway:
+    model: go-graphql-mongodb/graph.GatewayGQL
+    fields:
+      gatewayId:
+        fieldName: GatewayID
+      gateway_id:
+        fieldName: GatewayID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+  GatewayInstanceAssignRef:
+    model: go-graphql-mongodb/graph.GatewayInstanceAssignRefGQL
+  GatewayInstance:
+    model: go-graphql-mongodb/graph.GatewayInstanceGQL
+    fields:
+      gatewayInstanceId:
+        fieldName: GatewayInstanceID
+      gateway_instance_id:
+        fieldName: GatewayInstanceID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      isDeleted:
+        fieldName: Isdeleted
+      isDisabled:
+        fieldName: Isdisabled
+  AlarmNotificationProfileUser:
+    model: go-graphql-mongodb/graph.AlarmNotificationProfileUserGQL
+  AlarmNotificationProfile:
+    model: go-graphql-mongodb/graph.AlarmNotificationProfileGQL
+  AlarmLevel:
+    model: go-graphql-mongodb/graph.AlarmLevelGQL
+  RuleSetAndOrOperationData:
+    model: go-graphql-mongodb/graph.RuleSetAndOrOperationDataGQL
+  RuleLeftHandSide:
+    model: go-graphql-mongodb/graph.RuleLeftHandSideGQL
+  RuleRightHandSide:
+    model: go-graphql-mongodb/graph.RuleRightHandSideGQL
+  RuleResetValue:
+    model: go-graphql-mongodb/graph.RuleResetValueGQL
+  Rule:
+    model: go-graphql-mongodb/graph.RuleGQL
+  RuleSet:
+    model: go-graphql-mongodb/graph.RuleSetGQL
+  AlarmConfiguration:
+    model: go-graphql-mongodb/graph.AlarmConfigurationGQL
+    fields:
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      eventUserId:
+        fieldName: EventUserID
+      event_user_id:
+        fieldName: EventUserID
+      alarmSmsTemplateId:
+        fieldName: AlarmSmsTemplateID
+      alarm_sms_template_id:
+        fieldName: AlarmSmsTemplateID
+  BillMasterData:
+    model: go-graphql-mongodb/graph.BillMasterDataGQL
+  BillMaster:
+    model: go-graphql-mongodb/graph.BillMasterGQL
+    fields:
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      deviceInstanceId:
+        fieldName: DeviceInstanceID
+      device_instance_id:
+        fieldName: DeviceInstanceID
+      gatewayInstanceId:
+        fieldName: GatewayInstanceID
+      gateway_instance_id:
+        fieldName: GatewayInstanceID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      customerId:
+        fieldName: CustomerID
+      customer_id:
+        fieldName: CustomerID
+      customerPh:
+        fieldName: CustomerPh
+      customer_ph:
+        fieldName: CustomerPh
+      customerType:
+        fieldName: CustomerType
+      customer_type:
+        fieldName: CustomerType
+      ebTag:
+        fieldName: EbTag
+      eb_tag:
+        fieldName: EbTag
+      dgTag:
+        fieldName: DgTag
+      dg_tag:
+        fieldName: DgTag
+      flatNo:
+        fieldName: FlatNo
+      flat_no:
+        fieldName: FlatNo
+      squrArea:
+        fieldName: SqurArea
+      squr_area:
+        fieldName: SqurArea
+  EmailGateway:
+    model: go-graphql-mongodb/graph.EmailGatewayGQL
+    fields:
+      emailGatewayId:
+        fieldName: EmailGatewayID
+      email_gateway_id:
+        fieldName: EmailGatewayID
+      emailType:
+        fieldName: EmailType
+      email_type:
+        fieldName: EmailType
+      mailServer:
+        fieldName: MailServer
+      mail_server:
+        fieldName: MailServer
+      smtpPort:
+        fieldName: SMTPPort
+      smtp_port:
+        fieldName: SMTPPort
+      smtpAuthorization:
+        fieldName: SMTPAuthorization
+      smtp_authorization:
+        fieldName: SMTPAuthorization
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      eventUserId:
+        fieldName: EventUserID
+      event_user_id:
+        fieldName: EventUserID
+  WorkGroup:
+    model: go-graphql-mongodb/graph.WorkGroupGQL
+    fields:
+      workGroupId:
+        fieldName: WorkGroupID
+      work_group_id:
+        fieldName: WorkGroupID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      eventUserId:
+        fieldName: EventUserID
+      event_user_id:
+        fieldName: EventUserID
+  SmartMeterSensorId:
+    model: go-graphql-mongodb/graph.SmartMeterSensorIDGQL
+  SmartMeterGeneralInfoBody:
+    model: go-graphql-mongodb/graph.SmartMeterGeneralInfoBodyGQL
+  SmartMeterGeneralInfo:
+    model: go-graphql-mongodb/graph.SmartMeterGeneralInfoGQL
+  SmartMeterSlabSettingBody:
+    model: go-graphql-mongodb/graph.SmartMeterSlabSettingBodyGQL
+  SmartMeterSlabSetting:
+    model: go-graphql-mongodb/graph.SmartMeterSlabSettingGQL
+  SmartMeterConfiguration:
+    model: go-graphql-mongodb/graph.SmartMeterConfigurationGQL
+    fields:
+      clientId:
+        fieldName: ClientID
+      client_id:
+        fieldName: ClientID
+      deviceInstanceId:
+        fieldName: DeviceInstanceID
+      device_instance_id:
+        fieldName: DeviceInstanceID
+      sensorId:
+        fieldName: SensorID
+      sensor_id:
+        fieldName: SensorID
+      siteId:
+        fieldName: SiteID
+      site_id:
+        fieldName: SiteID
+      isDeleted:
+        fieldName: Isdeleted
+      isDisabled:
+        fieldName: Isdisabled
+
+resolver:
+  layout: follow-schema
+  dir: graph
+  package: graph
+  filename_template: "{name}.resolvers.go"

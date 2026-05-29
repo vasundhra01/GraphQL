@@ -1,0 +1,577 @@
+type User {
+    id: ID!
+    name: String!
+    email: String!
+}
+
+type DeviceInstanceTag {
+    sensorId: String!
+    source: String!
+    tagId: String!
+    virtualDeviceId: String!
+}
+
+type DeviceInstanceBelongsRef {
+    parentId: String!
+    nodeId: String!
+}
+
+type DeviceInstanceAssignRef {
+    parentId: String!
+    nodeId: String!
+}
+
+type DeviceInstanceGeneralInfo {
+    powerOutage: Boolean
+    belongsRef: [DeviceInstanceBelongsRef!]
+    assignRef: [DeviceInstanceAssignRef!]
+    timeout: String
+    deviceComId: String
+    make: String
+    modelNumber: String
+    protocolCategory: [String!]
+    deviceModelName: String
+    deviceModelRefId: String
+    deviceName: String
+    deviceSelection: [String!]
+    isDeleted: Boolean
+    isDisabled: Boolean
+    macId: String
+}
+
+type DeviceInstance {
+    id: ID!
+    deviceInstanceId: String!
+    device_instance_id: String!
+    siteId: String!
+    site_id: String!
+    gatewayId: String!
+    gateway_id: String!
+    deviceName: String!
+    sensors: [Sensor!]!
+    clientId: String
+    client_id: String
+    default: Boolean
+    gatewayInstanceId: String
+    gateway_instance_id: String
+    eventUserId: String
+    event_user_id: String
+    generalInfo: DeviceInstanceGeneralInfo
+    tagsData: [DeviceInstanceTag!]
+    gatewayInstance: GatewayInstance
+}
+
+type DeviceModel {
+    id: ID!
+    deviceModelId: String!
+    deviceModelName: String!
+    make: String!
+    modelNumber: String!
+}
+
+type Sensor {
+    id: ID!
+    sensorId: String!
+    sensor_id: String!
+    deviceInstanceId: String!
+    device_instance_id: String!
+    siteId: String!
+    site_id: String!
+    deviceName: String!
+    make: String!
+}
+
+type Query {
+    users: [User!]!
+    user(id: ID!): User
+    deviceInstances: [DeviceInstance!]!
+    deviceInstance(id: ID!): DeviceInstance
+    deviceModels: [DeviceModel!]!
+    deviceModel(id: ID!): DeviceModel
+    sensors: [Sensor!]!
+    sensor(id: ID!): Sensor
+    batches: [Batch!]!
+    batch(id: ID!): Batch
+    clients: [Client!]!
+    client(id: ID!): Client
+    costs: [Cost!]!
+    cost(id: ID!): Cost
+    sites: [Site!]!
+    site(id: ID!): Site
+    gateways: [Gateway!]!
+    gateway(id: ID!): Gateway
+    gatewayInstances: [GatewayInstance!]!
+    gatewayInstance(id: ID!): GatewayInstance
+    alarmConfigurations: [AlarmConfiguration!]!
+    alarmConfiguration(id: ID!): AlarmConfiguration
+    billMasters: [BillMaster!]!
+    billMaster(id: ID!): BillMaster
+    emailGateways: [EmailGateway!]!
+    emailGateway(id: ID!): EmailGateway
+    workGroups: [WorkGroup!]!
+    workGroup(id: ID!): WorkGroup
+    smartMeterConfigurations: [SmartMeterConfiguration!]!
+    smartMeterConfiguration(id: ID!): SmartMeterConfiguration
+}
+
+type Batch {
+    id: ID!
+    batchId: String!
+    batchName: String!
+    batchDescription: String!
+    siteId: String!
+    clientId: String!
+}
+
+type Client {
+    id: ID!
+    clientId: String!
+    client_id: String!
+    clientName: String!
+    clientDescription: String!
+    clientAddress: String!
+    clientLogo: String!
+    userId: String!
+    sites: [Site!]!
+}
+
+type Cost {
+    id: ID!
+    costManagementId: String!
+    cost_management_id: String!
+    costType: Int!
+    cost_type: Int!
+    dgBaseCost: Float!
+    dg_base_cost: Float!
+    dgCost: Float!
+    dg_cost: Float!
+    ebBaseCost: Float!
+    eb_base_cost: Float!
+    ebCost: Float!
+    eb_cost: Float!
+    siteId: String!
+    site_id: String!
+    clientId: String!
+    client_id: String!
+    costManagementKey: String
+    cost_management_key: String
+    costManagementKeyId: String
+    cost_management_key_id: String
+    fromDate: String
+    from_date: String
+    fromDateStr: String
+    from_date_str: String
+    toDate: String
+    to_date: String
+    toDateStr: String
+    to_date_str: String
+    rechargeTax: Float
+    recharge_tax: Float
+    serviceProvider: String
+    service_provider: String
+    serviceProviderId: String
+    service_provider_id: String
+    tariffCateg: String
+    tariff_categ: String
+    tariffCategoryId: String
+    tariff_category_id: String
+    cgstTax: Float
+    cgst_tax: Float
+    sgstTax: Float
+    sgst_tax: Float
+    camCost: Float
+    cam_cost: Float
+    ed1phase: Float
+    ed_1phase: Float
+    ed3phase: Float
+    ed_3phase: Float
+}
+
+type Site {
+    id: ID!
+    siteId: String!
+    site_id: String!
+    siteName: String!
+    clientId: String!
+    client_id: String!
+    client: Client
+    gateways: [Gateway!]!
+    gatewayInstances: [GatewayInstance!]!
+}
+
+type Gateway {
+    id: ID!
+    gatewayId: String!
+    gateway_id: String!
+    gatewayName: String!
+    siteId: String!
+    site_id: String!
+    site: Site
+    deviceInstances: [DeviceInstance!]!
+    dataReadFrequency: Float
+    gatewayModelRefId: String
+    gatewayModelName: String
+    type: String
+    default: Boolean
+    isDeleted: String
+}
+
+type GatewayInstanceAssignRef {
+    nodeId: String!
+    parentId: String!
+}
+
+type GatewayInstance {
+    id: ID!
+    gatewayInstanceId: String!
+    gateway_instance_id: String!
+    gatewayName: String!
+    macId: String!
+    siteId: String!
+    site_id: String!
+    clientId: String!
+    client_id: String!
+    assignedIndustry: String
+    awsLicense: Boolean
+    baudRate: String
+    comPort: String
+    dataBit: String
+    parity: String
+    stopBit: String
+    protocol: String
+    statusTimeout: Float
+    timeout: Float
+    type: String
+    default: Boolean
+    isConfigured: Boolean
+    isDeleted: Boolean
+    isDisabled: Boolean
+    dataReadFrequency: Float
+    dataLoggingFrequency: Float
+    assignRef: [GatewayInstanceAssignRef!]
+    site: Site
+    deviceInstances: [DeviceInstance!]!
+}
+
+type AlarmNotificationProfileUser {
+    label: String!
+    type: String!
+    value: String!
+}
+
+type AlarmNotificationProfile {
+    usersOrUserGroup: [AlarmNotificationProfileUser!]
+    isNotificationToneShow: Boolean
+    notificationProfile: [String!]
+    notificationTone: String
+}
+
+type AlarmLevel {
+    commands: [String!]
+    notificationProfiles: [AlarmNotificationProfile!]
+    suppress: String
+}
+
+type RuleSetAndOrOperationData {
+    isAnd: Boolean!
+    isOr: Boolean!
+}
+
+type RuleLeftHandSide {
+    tag: String!
+}
+
+type RuleRightHandSide {
+    compareOption: String!
+    customValue: Float
+    tag: String
+    threshold: Float
+}
+
+type RuleResetValue {
+    compareOption: String!
+    customValue: Float
+    isResetValueRequired: Boolean!
+    pTolerenceValue: Float
+    tag: String
+    threshold: Float
+    tolerenceValue: Float
+}
+
+type Rule {
+    condition: String!
+    leftHandSide: RuleLeftHandSide!
+    resetValue: RuleResetValue!
+    rightHandSide: RuleRightHandSide!
+}
+
+type RuleSet {
+    ruleAndOrOperationData: RuleSetAndOrOperationData!
+    rules: [Rule!]!
+}
+
+type AlarmConfiguration {
+    id: ID!
+    alarmName: String!
+    alarmDescription: String!
+    alarmType: String!
+    alarmCategory: String!
+    alarmDuration: String!
+    alarmTemplate: String!
+    alarmSmsTemplateId: String
+    alarm_sms_template_id: String
+    clientId: String!
+    client_id: String!
+    siteId: String!
+    site_id: String!
+    eventUserId: String
+    event_user_id: String
+    priority: String
+    priorityLevel: Int
+    acknowledgement: Boolean
+    edited: Boolean
+    enabled: Boolean
+    isDeleted: Boolean
+    isTypeIsAlarm: Boolean
+    devices: [String!]!
+    levels: [AlarmLevel!]!
+    ruleSetAndOrOperationData: RuleSetAndOrOperationData
+    ruleSets: [RuleSet!]!
+}
+
+type BillMasterData {
+    customers: Float!
+    disconnectionDays: Float!
+    electricalDuties: [String!]
+    excelFile: String
+    fixedCostDeduction: [Float!]
+    fromDate: String
+    toDate: String
+    selectTods: [String!]
+    addDeduction: [Float!]
+    billCycle: Float!
+    billDueDays: Float!
+    isTax: Float
+    startTime: String
+}
+
+type BillMaster {
+    id: ID!
+    clientId: String!
+    client_id: String!
+    customerName: String!
+    customerAddress: String
+    customerId: Float!
+    customer_id: Float!
+    customerPh: String
+    customer_ph: String
+    customerType: Float
+    customer_type: Float
+    deviceInstanceId: String!
+    device_instance_id: String!
+    gatewayInstanceId: String!
+    gateway_instance_id: String!
+    siteId: String!
+    site_id: String!
+    ebTag: String
+    eb_tag: String
+    dgTag: String
+    dg_tag: String
+    fromDate: String
+    startTime: Float
+    fixedChargeDg: Float
+    fixedChargeEb: Float
+    otherCharges: Float
+    isDeleted: String
+    isDisabled: String
+    flatNo: String
+    flat_no: String
+    squrArea: String
+    squr_area: String
+    data: BillMasterData
+}
+
+type EmailGateway {
+    id: ID!
+    emailGatewayId: String!
+    email_gateway_id: String!
+    emailType: String!
+    email_type: String!
+    encryption: String
+    mailServer: String!
+    mail_server: String!
+    username: String!
+    password: String!
+    senderEmail: String!
+    senderName: String
+    smtpPort: Float!
+    smtp_port: Float!
+    smtpAuthorization: Boolean
+    smtp_authorization: Boolean
+    profileName: String
+    configurationStatus: String
+    siteId: String
+    site_id: String
+    clientId: String
+    client_id: String
+    eventUserId: String
+    event_user_id: String
+    default: Boolean
+    systemDefaults: Boolean
+    isDeleted: Boolean
+}
+
+type WorkGroup {
+    id: ID!
+    workGroupId: String!
+    work_group_id: String!
+    workGroupName: String!
+    workGroupDescription: String
+    siteId: String!
+    site_id: String!
+    clientId: String!
+    client_id: String!
+    eventUserId: String
+    event_user_id: String
+    default: Boolean
+    isDeleted: Boolean
+}
+
+type SmartMeterSensorId {
+    sensorId: String!
+    sensorName: String!
+}
+
+type SmartMeterGeneralInfoBody {
+    area: Float
+    avenueNo: String
+    balanceType: Float
+    billType: String
+    blockNumber: String
+    blockType: String
+    costManagementId: String
+    customerAddress: String
+    customerId: Float
+    customerName: String
+    dgTag: String
+    dgThresholdKva: Float
+    ebTag: String
+    emailId: String
+    fixedChargeDg: Float
+    fixedChargeEb: Float
+    flat: String
+    flatNo: String
+    gstApplicable: [String!]
+    gstNumber: String
+    isDeleted: [String!]
+    isDisabled: [String!]
+    meterModel: String
+    meterType: String
+    mobileNo: Float
+    occupancyDate: String
+    otherCharges: Float
+    planType: String
+    relayStatus: String
+    sensorId: [SmartMeterSensorId!]
+    serviceProvider: String
+    serviceProviderId: String
+    smartMeterConfigurationId: String
+    subscriberType: Float
+    tag1624: Float
+    tag1625: Float
+    tag1626: Float
+    tag1627: Float
+    tag1628: Float
+    tag1629: Float
+    tag1630: Float
+    tag1631: Float
+    tag2952: Float
+    tag3046: Float
+    tag3047: Float
+    tariffCateg: String
+    tariffCategoryId: [String!]
+    tower: String
+    vacancyDate: String
+}
+
+type SmartMeterGeneralInfo {
+    bodyContent: SmartMeterGeneralInfoBody!
+}
+
+type SmartMeterSlabSettingBody {
+    blockNumber: String!
+    blockType: String!
+    sensorId: [SmartMeterSensorId!]
+    tag1655: Float
+    tag1657: Float
+    tag1673: Float
+    tag1674: Float
+    tag1675: Float
+    tag1676: Float
+    tag1677: Float
+    tag1678: Float
+    tag1681: Float
+    tag1682: Float
+    tag1683: Float
+    tag2900: Float
+    tag2901: Float
+    tag2902: String
+    tag2903: String
+    tag2904: Float
+    tag2905: Float
+    tag2906: Float
+    tag2907: Float
+    tag2908: Float
+    tag2909: Float
+    tag2910: Float
+    tag2911: Float
+    tag2912: Float
+    tag2913: Float
+    tag2914: Float
+    tag2915: Float
+    tag2916: Float
+    tag2917: Float
+    tag2918: Float
+    tag2919: Float
+    tag2920: Float
+    tag2921: Float
+    tag2922: Float
+    tag2923: Float
+    tag2924: Float
+    tag2925: Float
+    tag2926: Float
+    tag2927: Float
+    tag2928: Float
+    tag2929: Float
+    tag2930: Float
+    tag2931: Float
+    tag2932: Float
+    tag2933: Float
+    tag2934: Float
+    tag2935: Float
+    tag2936: Float
+    tag2952: Float
+    tag2973: Float
+    tag3054: Float
+    tag3521: Float
+}
+
+type SmartMeterSlabSetting {
+    bodyContent: SmartMeterSlabSettingBody!
+}
+
+type SmartMeterConfiguration {
+    id: ID!
+    clientId: String!
+    client_id: String!
+    deviceInstanceId: String!
+    device_instance_id: String!
+    sensorId: String!
+    sensor_id: String!
+    siteId: String!
+    site_id: String!
+    isDeleted: String
+    isDisabled: String
+    generalInfo: SmartMeterGeneralInfo
+    slabSetting: SmartMeterSlabSetting
+}
