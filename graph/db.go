@@ -45,7 +45,6 @@ func ConnectMongo() {
 		log.Fatal("MongoDB connect error:", err)
 	}
 
-	// Verify connection
 	if err = client.Ping(ctx, nil); err != nil {
 		log.Fatal("MongoDB ping error:", err)
 	}
@@ -76,7 +75,6 @@ func SeedData() {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	// 1. Check/Seed User
 	count, _ := UserCollection.CountDocuments(ctx, bson.M{})
 	if count == 0 {
 		UserCollection.InsertOne(ctx, User{
@@ -102,7 +100,6 @@ func SeedData() {
 		log.Println("Seeded Client")
 	}
 
-	// 3. Check/Seed Site
 	count, _ = SiteCollection.CountDocuments(ctx, bson.M{})
 	if count == 0 {
 		SiteCollection.InsertOne(ctx, Site{
@@ -114,7 +111,6 @@ func SeedData() {
 		log.Println("Seeded Site")
 	}
 
-	// 4. Check/Seed Gateway
 	count, _ = GatewayCollection.CountDocuments(ctx, bson.M{})
 	if count == 0 {
 		GatewayCollection.InsertOne(ctx, Gateway{
@@ -126,7 +122,6 @@ func SeedData() {
 		log.Println("Seeded Gateway")
 	}
 
-	// 5. Check/Seed DeviceInstance
 	count, _ = DeviceInstanceCollection.CountDocuments(ctx, bson.M{})
 	if count == 0 {
 		DeviceInstanceCollection.InsertOne(ctx, DeviceInstance{
@@ -141,7 +136,6 @@ func SeedData() {
 		log.Println("Seeded DeviceInstance")
 	}
 
-	// 6. Check/Seed Sensor
 	count, _ = SensorCollection.CountDocuments(ctx, bson.M{})
 	if count == 0 {
 		SensorCollection.InsertOne(ctx, Sensor{
