@@ -66,3 +66,18 @@ query {
   }
 }
 ```
+### nested query
+```txt
+query{
+  clients{
+    id
+    sites{
+      id
+      siteId
+      gatewayInstances{
+        id
+      }
+    }
+  }
+}
+```
